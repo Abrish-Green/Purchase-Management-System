@@ -4,7 +4,11 @@ import axios from "axios";
 export const initialState = {
   loading: false,
   error: false,
-  products: [],
+    products: [],
+    input: {
+        date1: null,
+        date2: null
+    }
 };
 
 const ProductSlice = createSlice({
@@ -18,6 +22,10 @@ const ProductSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.items = payload;
+      },
+      setInput: (state, { payload }) => {
+          state.input.date1 = payload.date1;
+          state.input.date2 = payload.date2;
     },
     setError: (state) => {
       state.error = true;
@@ -25,7 +33,7 @@ const ProductSlice = createSlice({
   },
 });
 
-export const { setLoading, setItems, setError } = ProductSlice.actions;
+export const { setLoading, setItems, setError, setInput } = ProductSlice.actions;
 
 export const itemsSelector = (state) => state.shop;
 
@@ -54,7 +62,24 @@ export function fetchAllItem() {
 }
 
 
-
+export function SearchProduct(date1 = null, date2 = null) {
+  return async (dispatch) => {
+    api
+        .get("/purchase/getAllProducts", {
+            date1: date1,
+            date2: date2,
+            startPosition: 0,
+            maxResult: 20
+            
+      })
+        .then((response) => {
+        dispatch(setItems(response?.data?.model));
+      })
+      .catch((er) => {
+        dispatch(setError());
+      });
+  };
+}
 
 
 

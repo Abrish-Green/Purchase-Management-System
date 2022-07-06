@@ -5,12 +5,13 @@ import { fetchAllItem } from './Services/Redux/Purchase';
 import React from 'react';
 function App() {
   const dispatch = useDispatch()
+  const state = useSelector((state => state))
   const product = useSelector((state)=> state.product) || []
   React.useEffect(() => {
     dispatch(fetchAllItem())
     console.log(product)
-  }, [dispatch, product])
-
+  }, [dispatch])
+  console.log(state)
   return (
     <>
       <div className="w-full">
@@ -18,7 +19,7 @@ function App() {
         <div className="p-1">
           {product.items != null && product?.items?.map((item) => {
             return (<>
-              <Product Data={item} />
+              <Product key={item.name} Data={item} />
             </>)
             })}
         </div>
