@@ -10,7 +10,7 @@ function App() {
   React.useEffect(() => {
     dispatch(fetchAllItem())
     console.log(product)
-  }, [dispatch])
+  }, [dispatch,product])
   console.log(state)
   return (
     <>
@@ -21,7 +21,13 @@ function App() {
             return (<>
               <Product key={item.name} Data={item} />
             </>)
-            })}
+          })}
+          {(product.items != null && product.items.length === 0) && 
+            <div className='p-4 text-2xl bg-red-600 shadow-md text-red'>
+                Not Found
+            </div>
+          }
+          
         </div>
         
       </div>

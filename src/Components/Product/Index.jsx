@@ -19,13 +19,6 @@ const Index = ({ Data }) => {
             ).toLocaleDateString(undefined, options)}
           </div>
         </div>
-        <div className="inline-flex gap-8 p-3 px-5 text-md">
-          <div className="italic text-black">
-            <button className="px-4 py-2 rounded-md text-md bg-cyan-500 hover:text-white">
-              Detail
-            </button>
-          </div>
-        </div>
       </div>
     </>
   );

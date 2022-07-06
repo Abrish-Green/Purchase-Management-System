@@ -63,15 +63,18 @@ export function fetchAllItem() {
 
 
 export function SearchProduct(date1 = null, date2 = null) {
-  return async (dispatch) => {
+    return async (dispatch) => {
+        const DateParams = {}
+        if (date1 != null) DateParams["date1"] =  new Date(date1).toISOString()
+        if (date2 != null) DateParams["date2"] =  new Date(date2).toISOString()
     api
-        .get("/purchase/getAllProducts", {
-            date1: date1,
-            date2: date2,
+        .get("/purchase/getAllProducts",
+            {
+                params: {
+                ...DateParams,
             startPosition: 0,
             maxResult: 20
-            
-      })
+  }})
         .then((response) => {
         dispatch(setItems(response?.data?.model));
       })
